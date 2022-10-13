@@ -138,9 +138,10 @@ body {
 .reveal h2.subtitle {
   color: #222;
   font-family: "Muli", Helvetica, sans-serif;
+  font-size: 2.5em;
 }
 .reveal .translucent {
-  opacity: 0.65;
+  opacity: 0.75;
 }
 
 .reveal h1 {
