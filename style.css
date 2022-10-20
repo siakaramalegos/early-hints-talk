@@ -53,7 +53,7 @@ body {
 
 .reveal {
   font-family: "Muli", Helvetica, sans-serif;
-  font-size: 36px;
+  font-size: 2.5rem;
   font-weight: normal;
   color: #222;
 }
@@ -145,16 +145,16 @@ body {
 }
 
 .reveal h1 {
-  font-size: 2.5em;
+  font-size: 3em;
   text-transform: uppercase;
 }
 
 .reveal h2 {
-  font-size: 1.6em;
+  font-size: 2em;
 }
 
 .reveal h3 {
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
 
 .reveal h4 {
@@ -194,7 +194,6 @@ body {
 .reveal dl,
 .reveal ul {
   display: inline-block;
-  font-size: 0.9em;
   text-align: left;
   margin: 0 0 0 1em;
 }
@@ -276,14 +275,17 @@ body {
 .reveal pre {
   display: block;
   position: relative;
-  width: 90%;
   margin: 20px auto;
   text-align: left;
-  font-size: 0.55em;
+  font-size: 0.8em;
   font-family: monospace;
   line-height: 1.2em;
   word-wrap: break-word;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
+.reveal pre {
+  width: 1280px; inset: 50% auto auto 50%; transform: translate(-50%,0) scale(0.9312);
 }
 
 .reveal code:not(.hljs) {
@@ -458,7 +460,7 @@ li.arrow:before {
   width: 2em;
 }
 .highlighter {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 #contents-table table,
 #contents-table tr,
@@ -497,6 +499,11 @@ li.no-bullet {
 
 .dark-highlight-quote blockquote {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+}
+
+.filter-dark .slide-background-content {
+  background-color: gray;
+  background-blend-mode: multiply;
 }
 
 video {
