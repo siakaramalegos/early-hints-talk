@@ -15,6 +15,14 @@ revealOptions:
 
 ---
 
+## hi, i'm sia
+
+[sia.codes](https://sia.codes/)
+
+<img src="./images/champagne_sia.jpg" alt="Sia dressed up as a champagne bottle at Mardi Gras" height="450px" class="no-outline">
+
+---
+
 <img src="./images/Early_Hints1.png" alt="A cafe table on the left with two cups of coffee" class="plain">
 
 ---
@@ -40,10 +48,6 @@ revealOptions:
 ---
 
 <img src="./images/Early_Hints7.png" alt="Arrows from pan to waiter station and then to table both saying 'OK!'" class="plain">
-
----
-
-<img src="./images/Early_Hints8.png" alt="More arrows from pan to waiter station and then to table both with plates of pancakes where the label would be" class="plain">
 
 ---
 
@@ -76,14 +80,6 @@ revealOptions:
 ---
 
 <img src="./images/Early_Hints16.png" alt="Smiley face because we now have hot pancakes and butter at the same time" class="plain">
-
----
-
-## hi, i'm sia
-
-[sia.codes](https://sia.codes/)
-
-<img src="./images/champagne_sia.jpg" alt="Sia dressed up as a champagne bottle at Mardi Gras" height="450px" class="no-outline">
 
 ---
 
@@ -134,6 +130,17 @@ Link: </script.js>; rel=preload; as=script
 
 ---
 
+<!-- .slide: data-background="./images/teamwork.jpg", class="filter-dark"-->
+# Teamwork <!-- .element: class="dark-background highlighter"-->
+
+---
+
+<img class="plain" src="./images/team_EH.png">
+
+Note: Colin Bendell at Shopify, Alex Krivit at Cloudflare and Kenji Baheeux at Chrome
+
+---
+
 <!-- .slide: data-background="./images/oatmeal-fruit.jpg", class="filter-dark"-->
 # Results <!-- .element: class="dark-background highlighter"-->
 
@@ -149,8 +156,10 @@ Link: <https://cdn.shopify.com>; crossorigin; rel="preconnect"
 
 ---
 
+## Largest Contentful Paint
+
 <!-- TODO: Add alts to all images -->
-<img alt="Box plots showing different OS's all with improved LCP performance when Early Hints was used to preconnect to our CDN" class="plain" src="./images/preconnect_LCP.png" width="60%">
+<img alt="Box plots showing different OS's all with improved LCP performance when Early Hints was used to preconnect to our CDN" class="plain" src="./images/preconnect_LCP.png" width="55%">
 
 Note: BFCM 2021 test. LCP improved across all regions and operating systems on Chrome browsers when an early hint was used to preconnect to our CDN domain. ~500ms improvement in median LCP
 
@@ -239,27 +248,29 @@ Note: So what we actually measured was a TTFB degradation unrelated to EH. Which
 
 ---
 
-results
+## 6% improvement in median LCP
+
+- 10 different merchant home pages
+- (TODO: more merchants and page types)
+- High variation within each 9 runs
+- 1 had worse performance
+
+Note:  Etsy recently conducted an experiment using early hints and measured a 2.5% improvement in LCP for landing pages, based on preconnects and font preloads. They are evaluating other ways of implementing to early hints to maximize the performance gains.
 
 ---
 
-<!-- .slide: data-background="./images/water-guns.jpg" -->
-<h1 class="dark-background">
-  <span class="highlighter"> Preload is a footgun </span>
-</h1>
+<!-- .slide: data-background="./images/cappuccino.jpg", class="filter-dark" -->
+# Conclusion <!-- .element: class="dark-background highlighter"-->
 
 ---
 
-<!-- .slide: data-background="./images/water-balloons.jpg" -->
-<h1 class="dark-background">
-  <span class="highlighter"> Early hints preload is a footcannon </span>
-</h1>
+## Conclusion
 
----
-
-<img class="no-outline" src="./images/Jimmie-Durhan-Installation.jpeg" alt="Sculpture of a boulder crushing a car with words crudely pasted over - JS is in large letters over the boulder and 'user just wanting to read a blog post' is in smaller letters over the car'" width="80%">
-
-<small>Original art by [Jimmie Durhan](https://hirshhorn.si.edu/explore/jimmie-durham-still-life-spirit-xitle/), please forgive the meme I created over it</small>
+- ✅ Early Hints is more promising than HTTP2 Server Push <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Preconnect showed promising results <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ⚠️ Preload is trickier and needs case-by-case testing <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Teamwork makes the dream work <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- 🧈 Butter hints are better than no butter hints <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 
 ---
 
@@ -280,6 +291,8 @@ results
 - Toast and egg image: Photo by <a href="https://unsplash.com/@shootdelicious?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Eiliv Aceron</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Rum image: Photo by <a href="https://unsplash.com/@annoand?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anders Nord</a> on <a href="https://unsplash.com/s/photos/rum?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Little girl with hands over eyes: Photo by <a href="https://unsplash.com/@caleb_woods?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Caleb Woods</a> on <a href="https://unsplash.com/s/photos/shame?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+- Teamwork image: Photo by <a href="https://unsplash.com/@hannahbusing?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hannah Busing</a> on <a href="https://unsplash.com/s/photos/team-work?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+- Cappuccino: Photo by <a href="https://unsplash.com/@jeztimms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jez Timms</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
 - Water gun fight is licensed through Unsplash+
 
@@ -297,3 +310,9 @@ results
 <small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
 
 Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+
+---
+
+```
+--disable-features=EarlyHintsPreloadForNavigation
+```

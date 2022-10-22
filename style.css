@@ -491,6 +491,7 @@ table.fixed-two-column td {
 
 li.no-bullet {
   list-style: none;
+  text-indent: -49px;
 }
 
 .dark-highlighter {
