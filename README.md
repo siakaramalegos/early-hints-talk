@@ -4,4 +4,4 @@
 
 ## Slides and Controls
 
-The slides are deployed [here](TODO). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
+The slides are deployed [here](https://butter-hints.netlify.app/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.

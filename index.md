@@ -87,9 +87,11 @@ revealOptions:
 
 ---
 
-<img src="./images/Early_Hints_wait.png" alt="Cafe diagram with kitchen and return pancakes region circled" class="plain">
+<img src="./images/Early_Hints_think_time.png" alt="Cafe diagram with kitchen region circled" class="plain">
 
-Note: - Server wait time, Origin latency time
+---
+
+<img src="./images/Early_Hints_latency.png" alt="Similar cafe diagram with distance between kitchen and serving station much more stretched" class="plain">
 
 ---
 
@@ -101,9 +103,17 @@ Note: - Server wait time, Origin latency time
 
 ---
 
+<img src="./images/Early_Hints_push1.png" alt="Cafe diagram but no asking for butter and it comes even though it's already on the table" class="plain">
+
+---
+
+<img src="./images/Early_Hints_push2.png" alt="Expanding that to all the other resources - now the table has too many coffees, forks, and butters" class="plain">
+
+---
+
 ## 103 Early Hints
 
-- ✅ Only send hints and let the browser decide <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Only send hints, and let the browser decide <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 - ✅ Don't make caching harder <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 - 🧐 Results are still early stage <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 
@@ -117,9 +127,48 @@ Note: - Server wait time, Origin latency time
 
 ---
 
-<img class="plain" src="./images/Early-hints-diagram-1.png">
+<img class="plain" src="./images/Early-hints-diagram-step1.png">
 
 ---
+
+<img class="plain" src="./images/Early-hints-diagram-step2.png">
+
+---
+
+<img class="plain" src="./images/Early-hints-diagram-step34.png">
+
+---
+
+<img class="plain" src="./images/Early-hints-diagram-step5.png">
+---
+
+<img class="plain" src="./images/Early-hints-diagram-1.png">
+
+<small>From <a href="https://blog.cloudflare.com/early-hints-performance/">Early Hints update: How Cloudflare, Google, and Shopify are working together to build a faster Internet for everyone</a></small>
+
+---
+
+## 103 Early Hints: the details
+
+- Sends HTTP status code 103 <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Content/hints are in the HTTP header <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+---
+
+<div style="display:flex;justify-content:space-between">
+  <img class="plain" src="./images/req-res-no-eh.avif" width="45%">
+  <img class="plain fragment fade-in" src="./images/req-res-eh.avif" width="45%">
+</div>
+
+<small>From <a href="https://developer.chrome.com/blog/early-hints/">Faster page loads using server think-time with Early Hints</a></small>
+
+---
+
+> Cloudflare sits within 50 milliseconds of 95% of the Internet-connected population globally.
+
+---
+
+## Syntax
 
 ```
 HTTP/1.1 103 Early Hints
@@ -127,6 +176,55 @@ Link: <https://example.com>; rel="preconnect"
 Link: </style.css>; rel=preload; as=style
 Link: </script.js>; rel=preload; as=script
 ```
+
+Note: Goal today is to explain the concepts. Details on how to set this up are better served with docs and tutorials from Cloudflare and Fastly. If you're considering rolling your own, talk to some of those folks about the common pitfalls.
+
+---
+
+## Resource Hints Review
+
+Early hints can be sent for <br/>
+`preconnect` and `preload`.
+
+---
+
+```html
+<!-- Preconnect -->
+<link rel="preconnect" href="https://cdn.shopify.com">
+```
+
+Note: All modern browsers except Firefox
+
+---
+
+```html
+<!-- Preload -->
+<link
+  href="//cdn.shopify.com/.../ShopifySans-Regular.woff2"
+  rel="preload" as="font" type="font/woff2" crossorigin="true">
+```
+
+Note: All modern browsers
+
+---
+
+<!-- .slide: data-background="./images/fruit_juice.jpg", class="filter-dark"-->
+# When to consider Early Hints <!-- .element: class="dark-background highlighter"-->
+
+---
+
+> When a buyer visits a Shopify website, if that **first page experience** is 10% faster, on average there is a 7% increase in conversion.
+
+---
+
+## Should I consider Early Hints?
+
+- ✅ First impressions are important for conversion (use on top landing pages) <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Server has to do work before sending the HTML <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ❌ Server can immediately send the HTML <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Server is farther from user than edge/CDN server <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Traffic is high enough that the edge/CDN server will likely have Early Hints cached <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ Use on resources that do not change often <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 
 ---
 
@@ -136,6 +234,12 @@ Link: </script.js>; rel=preload; as=script
 ---
 
 <img class="plain" src="./images/team_EH.png">
+
+Note: Colin Bendell at Shopify, Alex Krivit at Cloudflare and Kenji Baheeux + Kenichi Ishibashi at Chrome
+
+---
+
+<img class="plain" src="./images/team_EH_puzzle.png">
 
 Note: Colin Bendell at Shopify, Alex Krivit at Cloudflare and Kenji Baheeux at Chrome
 
@@ -158,16 +262,25 @@ Link: <https://cdn.shopify.com>; crossorigin; rel="preconnect"
 
 ## Largest Contentful Paint
 
-<!-- TODO: Add alts to all images -->
 <img alt="Box plots showing different OS's all with improved LCP performance when Early Hints was used to preconnect to our CDN" class="plain" src="./images/preconnect_LCP.png" width="55%">
 
 Note: BFCM 2021 test. LCP improved across all regions and operating systems on Chrome browsers when an early hint was used to preconnect to our CDN domain. ~500ms improvement in median LCP
 
 ---
 
+## Largest Contentful Paint
+
+<img alt="Box plots showing different OS's all with improved LCP performance when Early Hints was used to preconnect to our CDN" class="plain" src="./images/preconnect_LCP_explained.png" width="85%">
+
+---
+
+<img alt="" class="plain" src="./images/filmstrip_preconnect.png" >
+
+---
+
 # 🤔
 
-Note: take a step back and realize we wouldn't need this if we didn't have a separate CDN domain - so we're using EH to accommodate for a less-than-ideal situation due to legacy architecture - which is totally a valid use case still but something to keep in mind
+Note: take a step back and realize we wouldn't need this if we didn't have a separate CDN domain - so we're using EH to accommodate for a less-than-ideal situation due to legacy architecture. Under HTTP1, domain sharding was a better way to serve assets faster due to the limited number of concurrent connections ~6. Can't instantly switch each time a new HTTP version comes out.
 
 ---
 
@@ -175,12 +288,21 @@ Note: take a step back and realize we wouldn't need this if we didn't have a sep
 
 ```
 HTTP/1.1 103 Early Hints
-Link: <//cdn.shop.../assets/font1.woff2>; as=font; crossorigin; rel=preload; type=font/woff2
-Link: <//cdn.shop.../assets/font3.woff2>; as=font; crossorigin; rel=preload; type=font/woff2
-Link: <//cdn.shop.../files/script.js>; as=script; rel=preload; type=text/javascript
-Link: <//cdn.shop.../assets/main.js>; as=script; rel=preload; type=text/javascript
-Link: <//cdn.shop.../assets/theme.css>; as=style; rel=preload
+Link: <font1.woff2>; rel=preload; as=font; crossorigin...
+Link: <font3.woff2>; rel=preload; as=font; crossorigin...
+Link: <script.js>; rel=preload; as=script; type=text/javascript
+Link: <main.js>; rel=preload; as=script; type=text/javascript
+Link: <theme.css>; rel=preload; as=style;
 ```
+
+---
+
+## Shopify themes use Liquid for templating
+
+- HTML templating language
+- Similar to Nunjucks, HAML, Handlebars, Pug, etc.
+- Can access data directly in Liquid for SSR
+- See layout (wrapper) [example](https://github.com/Shopify-Web-Perf-Team-Internal/perf-shopify-theme/blob/main/layout/theme.liquid) for context
 
 ---
 
@@ -189,26 +311,66 @@ Link: <//cdn.shop.../assets/theme.css>; as=style; rel=preload
 ```liquid
 {{ 'font.woff2'
   | asset_url
-  | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+  | preload_tag:
+      as: 'font',
+      type: 'font/woff2',
+      crossorigin: true
+}}
 
 {{ 'script.js' | asset_url | preload_tag: as: 'script' }}
 
 {{ 'style.css' | asset_url | stylesheet_tag: preload: true }}
 ```
 
-Note: Stores can only access EH using Liquid, and only to files on our CDN. Will create both preload tags and EH's.
+Note: Liquid: piping into next filter, additional params after filter. Stores can only access EH using Liquid, and only to files on our CDN. Will create both preload tags and EH's.
 
 ---
 
 ```liquid
 {{
   product.featured_image
-    | image_url: width: 600
-    | image_tag: preload: true, widths: 80, 90, 100, 120, 200, 400, 600, 800
+    | image_url: width: 2 000
+    | image_tag:
+        preload: true,
+        widths: 50, 80, 90, 100, 120, 160, 200, 300, 400, 500,
+          600, 700, 800, 1000, 1200, 1500, 1800, 2000
 }}
 ```
 
-Note: Can anyone imagine what might go wrong here???
+Note: Also an example of accessing data object directly in Liquid. Can anyone imagine what might go wrong here???
+
+---
+
+```html
+<img srcset="//cdn.shopify.com/s/files/1/0657/6730/9530/articles/
+fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;width=50
+50w, //cdn.shopify.com/s/files/1/0657/6730/9530/articles/fahrul-
+azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;width=100 100w,
+//cdn.shopify.com/s/files/1/0657/6730/9530/articles/fahrul-azmi-
+lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;width=200 200w, //cdn.
+shopify.com/s/files/1/0657/6730/9530/articles/fahrul-azmi-lNpkIWn
+FzTo-unsplash.jpg?v=1666177560&amp;width=300 300w, //cdn.shopify.
+com/s/files/1/0657/6730/9530/articles/fahrul-azmi-lNpkIWnFzTo-
+unsplash.jpg?v=1666177560&amp;width=350 350w, //cdn.shopify.com/s/
+files/1/0657/6730/9530/articles/fahrul-azmi-lNpkIWnFzTo-unsplash.
+jpg?v=1666177560&amp;width=500 500w, //cdn.shopify.com/s/files/1/
+0657/6730/9530/articles/fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=
+1666177560&amp;width=750 750w, //cdn.shopify.com/s/files/1/0657/
+6730/9530/articles/fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=166617
+7560&amp;width=1100 1100w, //cdn.shopify.com/s/files/1/0657/6730/
+9530/articles/fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;
+width=1500 1500w, //cdn.shopify.com/s/files/1/0657/6730/9530/
+articles/fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;width
+=2200 2200w, //cdn.shopify.com/s/files/1/0657/6730/9530/articles/
+fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560 2981w" sizes=
+"(min-width: 1200px) 1100px, (min-width: 750px) calc(100vw - 10rem),
+100vw" src="//cdn.shopify.com/s/files/1/0657/6730/9530/articles/
+fahrul-azmi-lNpkIWnFzTo-unsplash.jpg?v=1666177560&amp;width=1100"
+width="2981" height="1677" alt="Introduction to preconnect and
+preload resource hints">
+```
+
+Note: Image srcsets as preload early hints are not yet working - still working on implementation details.
 
 ---
 
@@ -222,7 +384,7 @@ Note: Can anyone imagine what might go wrong here???
 
 ⚠️ Beware of making your headers too large!
 
-Note: where were we? Oh yeah...
+Note: Also consider fetchpriority instead. Where were we? Oh yeah...
 
 ---
 
@@ -244,18 +406,38 @@ Note: So what we actually measured was a TTFB degradation unrelated to EH. Which
 
 ---
 
-## How I blew through my WebPageTest Pro budget in one week
+## How I blew through my WebPageTest Pro budget in 2 days
 
 ---
 
-## 6% improvement in median LCP
+## 1.2% improvement in p50 LCP
 
-- 10 different merchant home pages
-- (TODO: more merchants and page types)
+- 16 different merchant websites
+- Index, collection, and product pages
 - High variation within each 9 runs
-- 1 had worse performance
+- Ranged from -15% to 21%
 
-Note:  Etsy recently conducted an experiment using early hints and measured a 2.5% improvement in LCP for landing pages, based on preconnects and font preloads. They are evaluating other ways of implementing to early hints to maximize the performance gains.
+Note:  Etsy recently conducted an experiment using early hints and measured a 2.5% improvement in LCP for landing pages, based on preconnects and font preloads. They are evaluating other ways of implementing to early hints to maximize the performance gains. Wix tested preconnects and haven't found significant improvement with it yet.
+
+---
+
+## Preload is still a footgun.
+
+---
+
+## Without Early Hints
+
+<img alt="" class="plain" src="./images/waterfall_degradation_no_EH.png" >
+
+---
+
+## With Early Hints 🦶🏻🔫
+
+<img alt="" class="plain" src="./images/waterfall_degradation_EH.png" >
+
+---
+
+<img alt="" class="plain" src="./images/filmstrip_preload_good.png" >
 
 ---
 
@@ -282,8 +464,9 @@ Note:  Etsy recently conducted an experiment using early hints and measured a 2.
 
 ---
 
-## Credits
+## Photo Credits
 
+<small>
 - Pancake image: Photo by <a href="https://unsplash.com/@amysaysamy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Amy Flak</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Water balloons image: Photo by <a href="https://unsplash.com/@tcooper86?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Tim Cooper</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Froot Loops image: Photo by <a href="https://unsplash.com/@etiennegirardet?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Etienne Girardet</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -293,25 +476,13 @@ Note:  Etsy recently conducted an experiment using early hints and measured a 2.
 - Little girl with hands over eyes: Photo by <a href="https://unsplash.com/@caleb_woods?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Caleb Woods</a> on <a href="https://unsplash.com/s/photos/shame?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Teamwork image: Photo by <a href="https://unsplash.com/@hannahbusing?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hannah Busing</a> on <a href="https://unsplash.com/s/photos/team-work?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Cappuccino: Photo by <a href="https://unsplash.com/@jeztimms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jez Timms</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-
+- Fruit and juice: Photo by <a href="https://unsplash.com/@brookelark?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brooke Lark</a> on <a href="https://unsplash.com/s/photos/breakfast?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Water gun fight is licensed through Unsplash+
+</small>
 
 ---
 
-## Cheatsheet
-
-- ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ❌ GIF: don't. use jpg for a still or video for animation. <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-- ✅ AVIF: EVEN SMALLER, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
-
-<small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
-
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
-
----
+## Chrome CLI to disable Early Hints on WebPageTest
 
 ```
 --disable-features=EarlyHintsPreloadForNavigation
